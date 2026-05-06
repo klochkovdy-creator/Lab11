@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="PhoneBook.Views.ContactsListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid ItemsSource="{Binding Contacts}"
+                  SelectedItem="{Binding SelectedContact}"
+                  AutoGenerateColumns="True"
+                  IsReadOnly="True"/>
+        <Button Grid.Row="1"
+                Content="Редактировать"
+                Command="{Binding EditContactCommand}"
+                Margin="0,10,0,0" Width="120"/>
+    </Grid>
+</UserControl>
