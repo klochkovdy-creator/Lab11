@@ -4,15 +4,12 @@ using PhoneBook.Services;
 
 namespace PhoneBook.ViewModels
 {
-    // ViewModel экрана редактирования контакта.
-    // Реализует INavigationAware: получает редактируемый контакт через OnNavigatedTo.
+
     public class ContactEditViewModel : ObservableObject, INavigationAware
     {
         private readonly INavigationService _navigation;
         private readonly IContactService _contactService;
 
-        // Ссылка на оригинальный объект Contact из хранилища;
-        // изменения вносятся в копию (EditName/EditPhone) и применяются только при сохранении
         private Contact _contact = new Contact();
         private string _editName = string.Empty;
         private string _editPhone = string.Empty;
@@ -37,7 +34,6 @@ namespace PhoneBook.ViewModels
             _navigation = navigation;
             _contactService = contactService;
 
-            // Сохраняем изменения в оригинальный объект и возвращаемся к списку
             SaveCommand = new RelayCommand(_ =>
             {
                 _contact.Name = EditName;
@@ -46,21 +42,24 @@ namespace PhoneBook.ViewModels
                 _navigation.NavigateTo<ContactsListViewModel>();
             });
 
-            // Отмена — возвращаемся к списку без сохранения
             CancelCommand = new RelayCommand(_ =>
                 _navigation.NavigateTo<ContactsListViewModel>());
         }
 
-        // Вызывается NavigationService перед отображением экрана.
-        // Инициализируем поля редактирования данными выбранного контакта.
+
         public void OnNavigatedTo(object parameter)
-        {
-            if (parameter is Contact contact)
-            {
-                _contact = contact;
-                EditName = contact.Name;
-                EditPhone = contact.Phone;
-            }
-        }
+{
+    if (parameter is Contact contact)
+    {
+        _contact = new Contact 
+        { 
+            Id = contact.Id, 
+            Name = contact.Name, 
+            Phone = contact.Phone 
+        };
+        EditName = _contact.Name;
+        EditPhone = _contact.Phone;
+    }
+}
     }
 }
