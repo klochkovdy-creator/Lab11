@@ -1,7 +1,6 @@
 ﻿namespace PhoneBook.ViewModels
 {
-    // ViewModel экрана «О программе».
-    // Содержит только статические свойства — не требует INotifyPropertyChanged.
+
     public class AboutViewModel : ObservableObject
     {
         public string Title => "О программе";
