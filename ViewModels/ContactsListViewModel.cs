@@ -5,8 +5,7 @@ using PhoneBook.Services;
 
 namespace PhoneBook.ViewModels
 {
-    // ViewModel экрана списка контактов.
-    // Реализует INavigationAware для перезагрузки списка при возврате с экрана редактирования.
+
     public class ContactsListViewModel : ObservableObject, INavigationAware
     {
         private readonly INavigationService _navigation;
@@ -21,8 +20,6 @@ namespace PhoneBook.ViewModels
 
         public ObservableCollection<Contact> Contacts { get; } = new ObservableCollection<Contact>();
 
-        // Команда редактирования — переходит на экран ContactEditViewModel,
-        // передавая выбранный контакт в качестве параметра навигации
         public ICommand EditContactCommand { get; }
 
         public ContactsListViewModel(INavigationService navigation, IContactService contactService)
@@ -42,8 +39,6 @@ namespace PhoneBook.ViewModels
             LoadContacts();
         }
 
-        // Вызывается NavigationService при каждом переходе на этот экран.
-        // Перезагружаем список, чтобы отобразить изменения после редактирования.
         public void OnNavigatedTo(object parameter)
         {
             LoadContacts();
